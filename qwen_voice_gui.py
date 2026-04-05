@@ -1291,7 +1291,7 @@ class QwenVoiceGUI:
             gr.Markdown("Generate high-quality speech with multiple voice options")
             
             with gr.Tabs():
-                with gr.Tab("🎤 Text-to-Speech"):
+                with gr.Tab("🎤 Text-to-Speech", render_children=True):
                     with gr.Row():
                         with gr.Column(scale=2):
                             tts_text = gr.Textbox(
@@ -1360,15 +1360,13 @@ class QwenVoiceGUI:
                         fn=self.generate_tts,
                         inputs=[tts_text, tts_language, tts_speaker, tts_instruct, tts_save_name],
                         outputs=[tts_audio_output, tts_status]
-                    )
-
-                    tts_generate_btn.click(
+                    ).then(
                         fn=lambda x: (x or 0) + 1,
                         inputs=[library_refresh_token],
                         outputs=[library_refresh_token]
                     )
                 
-                with gr.Tab("🎭 Voice Cloning"):
+                with gr.Tab("🎭 Voice Cloning", render_children=True):
                     gr.Markdown("### Clone a voice from an audio sample")
                     
                     with gr.Row():
@@ -1461,9 +1459,7 @@ class QwenVoiceGUI:
                         fn=self.clone_voice,
                         inputs=[clone_audio, clone_ref_text, clone_target_text, clone_language, clone_voice_name, clone_save_name],
                         outputs=[clone_audio_output, clone_status, saved_voice_dropdown]
-                    )
-
-                    clone_generate_btn.click(
+                    ).then(
                         fn=lambda x: (x or 0) + 1,
                         inputs=[library_refresh_token],
                         outputs=[library_refresh_token]
@@ -1491,9 +1487,7 @@ class QwenVoiceGUI:
                         fn=self.generate_with_cloned_voice,
                         inputs=[saved_voice_dropdown, saved_voice_text, saved_voice_language, saved_voice_save_name],
                         outputs=[saved_voice_audio_output, saved_voice_status]
-                    )
-
-                    saved_voice_generate_btn.click(
+                    ).then(
                         fn=lambda x: (x or 0) + 1,
                         inputs=[library_refresh_token],
                         outputs=[library_refresh_token]
@@ -1511,7 +1505,7 @@ class QwenVoiceGUI:
                         outputs=[saved_voice_status, saved_voice_dropdown]
                     )
                 
-                with gr.Tab("🎨 Voice Design"):
+                with gr.Tab("🎨 Voice Design", render_children=True):
                     gr.Markdown("### Design a custom voice with natural language instructions")
                     
                     with gr.Row():
@@ -1585,9 +1579,7 @@ class QwenVoiceGUI:
                         fn=self.design_voice,
                         inputs=[design_text, design_language, design_instruct, design_voice_name, design_save_name],
                         outputs=[design_audio_output, design_status, designed_voice_dropdown]
-                    )
-
-                    design_generate_btn.click(
+                    ).then(
                         fn=lambda x: (x or 0) + 1,
                         inputs=[library_refresh_token],
                         outputs=[library_refresh_token]
@@ -1623,7 +1615,7 @@ class QwenVoiceGUI:
                         outputs=[designed_voice_status, designed_voice_dropdown]
                     )
 
-                with gr.Tab("💬 Conversations"):
+                with gr.Tab("💬 Conversations", render_children=True):
                     gr.Markdown("### Generate multi-voice conversations from a script")
 
                     with gr.Row():
@@ -1695,15 +1687,13 @@ class QwenVoiceGUI:
                         fn=self.generate_conversation,
                         inputs=[conv_voice1, conv_voice2, conv_voice3, conv_script, conv_language, conv_save_name],
                         outputs=[conv_audio_output, conv_status],
-                    )
-
-                    conv_generate_btn.click(
+                    ).then(
                         fn=lambda x: (x or 0) + 1,
                         inputs=[library_refresh_token],
                         outputs=[library_refresh_token]
                     )
 
-                with gr.Tab("🎙️ Voice ASR"):
+                with gr.Tab("🎙️ Voice ASR", render_children=True):
                     gr.Markdown("### Transcribe audio to text (Qwen3-ASR)")
 
                     with gr.Row():
@@ -1793,7 +1783,7 @@ class QwenVoiceGUI:
                         outputs=[asr_text_output, asr_timestamps_output, asr_revoice_audio, asr_status],
                     )
                 
-                with gr.Tab("📂 Audio Library"):
+                with gr.Tab("📂 Audio Library", render_children=True):
                     gr.Markdown("### Manage your generated audio files")
                     
                     with gr.Row():
@@ -1849,7 +1839,9 @@ class QwenVoiceGUI:
                             *tile_dl_wav_btns,
                             *tile_dl_mp3_btns,
                             *tile_dl_files,
-                        ]
+                        ],
+                        show_progress="hidden",
+                        show_progress_on=[],
                     )
 
                     app.load(
@@ -1864,7 +1856,9 @@ class QwenVoiceGUI:
                             *tile_dl_wav_btns,
                             *tile_dl_mp3_btns,
                             *tile_dl_files,
-                        ]
+                        ],
+                        show_progress="hidden",
+                        show_progress_on=[],
                     )
 
                     refresh_library_btn.click(
@@ -1893,15 +1887,13 @@ class QwenVoiceGUI:
                         fn=delete_from_tiles,
                         inputs=[library_file_names_state, *tile_checks],
                         outputs=[library_status, library_file_names_state]
-                    )
-
-                    delete_selected_btn.click(
+                    ).then(
                         fn=lambda x: (x or 0) + 1,
                         inputs=[library_refresh_token],
                         outputs=[library_refresh_token]
                     )
                 
-                with gr.Tab("⚙️ Settings"):
+                with gr.Tab("⚙️ Settings", render_children=True):
                     gr.Markdown("### Voice Sample Management")
 
                     render_device = gr.Dropdown(
@@ -1949,7 +1941,7 @@ class QwenVoiceGUI:
                         outputs=[system_info]
                     )
                 
-                with gr.Tab("ℹ️ Info"):
+                with gr.Tab("ℹ️ Info", render_children=True):
                     gr.Markdown("""
                     ## Qwen Voice TTS Studio 1.1
                     
