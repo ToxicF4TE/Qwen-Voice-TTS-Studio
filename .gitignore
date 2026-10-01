@@ -1,0 +1,45 @@
+# Local Python environments
+/venv/
+/.venv/
+
+# Downloaded models and generated audio / saved voice data
+/models/
+/outputs/
+/voiceinputs/
+/voicesamples/
+/cloned_voices/
+/designed_voices/
+# Existing tracked files (including cloned_voices/voices.json) stay tracked.
+
+# Local environment settings; keep reusable examples and defaults
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+!.env.defaults
+!.env.*.example
+!.env.*.sample
+!.env.*.template
+
+# Python bytecode and tool caches
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local editor settings and temporary files
+/.vscode/
+/.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# The bundled Python runtime is intentional and remains versioned.
+!/312/
+!/312/**
